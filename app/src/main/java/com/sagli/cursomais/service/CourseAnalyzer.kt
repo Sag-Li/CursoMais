@@ -36,14 +36,14 @@ object CourseAnalyzer {
             return courses
         }
 
-        return courses.filter { course ->
+        return courses.filter {
 
-            course.name.contains(
+            it.name.contains(
                 cleanTerm,
                 ignoreCase = true
             ) ||
 
-                    course.category.contains(
+                    it.category.contains(
                         cleanTerm,
                         ignoreCase = true
                     )
