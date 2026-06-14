@@ -2,21 +2,65 @@ package com.sagli.cursomais.service
 
 import com.sagli.cursomais.model.Enrollment
 
-class EnrollmentService {
+object EnrollmentService {
 
     private val enrollments = mutableListOf<Enrollment>()
 
-    fun addEnrollment(enrollment: Enrollment) {
-        enrollments.add(enrollment)
+    fun enroll(
+        studentId: Int,
+        courseId: Int
+    ) {
+
+        val alreadyExists = enrollments.any {
+
+            it.studentId == studentId &&
+                    it.courseId == courseId
+        }
+
+        if (!alreadyExists) {
+
+            enrollments.add(
+
+                Enrollment(
+                    studentId = studentId,
+                    courseId = courseId
+                )
+            )
+        }
     }
 
-    fun getAllEnrollments(): List<Enrollment> {
-        return enrollments
+    fun cancelEnrollment(
+        studentId: Int,
+        courseId: Int
+    ) {
+
+        enrollments.removeIf {
+
+            it.studentId == studentId &&
+                    it.courseId == courseId
+        }
     }
 
-    fun getEnrollmentsByCourse(courseId: Int): List<Enrollment> {
+    fun updateProgress(
+        studentId: Int,
+        courseId: Int,
+        progress: Int
+    ) {
+
+        enrollments.find {
+
+            it.studentId == studentId &&
+                    it.courseId == courseId
+        }?.completionPercentage = progress
+    }
+
+    fun getEnrollmentsByStudent(
+        studentId: Int
+    ): List<Enrollment> {
+
         return enrollments.filter {
-            it.courseId == courseId
+
+            it.studentId == studentId
         }
     }
 }

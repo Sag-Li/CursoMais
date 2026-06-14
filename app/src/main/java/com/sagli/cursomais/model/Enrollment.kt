@@ -4,11 +4,7 @@ data class Enrollment(
 
     val studentId: Int,
 
-    val studentName: String,
-
     val courseId: Int,
 
-    val completionPercentage: Int,
-
-    val finalGrade: Double
+    var completionPercentage: Int = 0
 )

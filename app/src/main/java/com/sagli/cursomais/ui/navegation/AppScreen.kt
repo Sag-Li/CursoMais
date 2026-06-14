@@ -4,25 +4,42 @@ import androidx.compose.runtime.*
 import com.sagli.cursomais.model.UserRole
 import com.sagli.cursomais.ui.screens.AdminHomeScreen
 import com.sagli.cursomais.ui.screens.LoginScreen
-import com.sagli.cursomais.ui.screens.StudentHomeScreen
+import com.sagli.cursomais.ui.screens.StudentScreen
 
 @Composable
 fun AppScreen() {
 
     var userRole by remember {
-        mutableStateOf<UserRole?>(null)
+
+        mutableStateOf<UserRole?>(
+            null
+        )
     }
 
     when (userRole) {
 
-        null -> LoginScreen(
-            onLoginSuccess = {
-                userRole = it
-            }
-        )
+        null ->
 
-        UserRole.ADMIN -> AdminHomeScreen()
+            LoginScreen(
 
-        UserRole.STUDENT -> StudentHomeScreen()
+                onLoginSuccess = {
+
+                    userRole = it
+                }
+            )
+
+        UserRole.ADMIN ->
+
+            AdminHomeScreen()
+
+        UserRole.STUDENT ->
+
+            StudentScreen(
+
+                onLogout = {
+
+                    userRole = null
+                }
+            )
     }
 }

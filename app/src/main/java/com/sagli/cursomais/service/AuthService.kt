@@ -8,6 +8,8 @@ object AuthService {
     private const val ADMIN_EMAIL = "sara@adm.com"
     private const val ADMIN_PASSWORD = "1234"
 
+    private var loggedStudent: Student? = null
+
     private val students = mutableListOf(
 
         Student(
@@ -28,6 +30,8 @@ object AuthService {
             password == ADMIN_PASSWORD
         ) {
 
+            loggedStudent = null
+
             return UserRole.ADMIN
         }
 
@@ -42,6 +46,8 @@ object AuthService {
         }
 
         return if (student != null) {
+
+            loggedStudent = student
 
             UserRole.STUDENT
 
@@ -72,5 +78,15 @@ object AuthService {
     fun getStudents(): List<Student> {
 
         return students
+    }
+
+    fun getLoggedStudent(): Student? {
+
+        return loggedStudent
+    }
+
+    fun logout() {
+
+        loggedStudent = null
     }
 }
